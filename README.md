@@ -1,5 +1,8 @@
 # node-clitools-mockapi-protoservices
 
+Use Node.js powers to Mock RESTful JSON APIs, Prototype real-time services and Discover and use ecosystem utilities.
+
+
 ## Service Mocking - Server
 
 > install dependencies
