@@ -11,6 +11,12 @@ npm install -g serve
 serve static
 ```
 
+> install dependencies
+```sh
+cd mock-srv
+npm install
+```
+
 ## Optional commands for serve
 
 > serve `static` with cors enabled
