@@ -9,7 +9,7 @@ const populateProducts = async () => {
 		products.innerHTML = ''
 
 		const res = await fetch(API)
-		const data = await res.json
+		const data = await res.json()
 
 		for (const product of data) {
 			const item = createEl('product-item')
