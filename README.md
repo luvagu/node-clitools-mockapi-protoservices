@@ -1,8 +1,19 @@
 # node-clitools-mockapi-protoservices
 
-## Service Mocking 
+## Service Mocking - Server
 
-To get started we will be serving our static directory with `serve`
+> install dependencies
+```sh
+cd mock-srv
+npm install
+npm run dev
+``` 
+
+> Make any modifications as needed to the `mock-srv/routes` and `mock-srv/plugins`
+
+## Service Mocking - Client
+
+> Install and serve our static directory with `serve` from the project's root directory
 
 ```sh
 npm install -g serve
@@ -12,12 +23,7 @@ npm install -g serve
 ```sh
 serve static
 ```
-
-> install dependencies
-```sh
-cd mock-srv
-npm install
-```
+> Then open http://localhost:5000/ to interact with the mock server
 
 ## Optional commands for serve
 

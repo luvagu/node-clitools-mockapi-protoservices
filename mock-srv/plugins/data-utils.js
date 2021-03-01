@@ -8,9 +8,7 @@ const catToPrefix = {
 
 const calculateID = (idPrefix, data) => {
 	const sorted = [...new Set(data.map(({ id }) => id))]
-    console.log('sorted', sorted)
 	const next = Number(sorted.pop().slice(1)) + 1
-    console.log('next', next)
 	return `${idPrefix}${next}`
 }
 
