@@ -1,14 +1,22 @@
 const API = 'http://localhost:3000'
 
-const selectEl = (selector) => document.querySelector(selector)
-const createEl = (element) => document.createElement(element)
+const selectEl = selector => document.querySelector(selector)
+const createEl = element => document.createElement(element)
 
-const populateProducts = async (category) => {
+const populateProducts = async (category, method = 'GET', payload) => {
 	try {
 		const products = selectEl('#products')
 		products.innerHTML = ''
 
-		const res = await fetch(`${API}/${category}`)
+		const send =
+			method === 'GET'
+				? {}
+				: {
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(payload),
+				  }
+
+		const res = await fetch(`${API}/${category}`, { method, ...send })
 		const data = await res.json()
 
 		for (const product of data) {
@@ -27,7 +35,23 @@ const populateProducts = async (category) => {
 }
 
 const category = selectEl('#category')
-category.addEventListener('input', async ({ target }) => await populateProducts(target.value))
+category.addEventListener('input', async ({ target }) => {
+	add.style.display = 'block'
+  	await populateProducts(target.value)
+})
+
+const add = selectEl('#add')
+add.addEventListener('submit', async e => {
+	e.preventDefault()
+	const { target } = e
+	const payload = {
+		name: target.name.value,
+		rrp: target.rrp.value,
+		info: target.info.value,
+	}
+	await populateProducts(category.value, 'POST', payload)
+	target.reset()
+})
 
 customElements.define(
 	'product-item',
