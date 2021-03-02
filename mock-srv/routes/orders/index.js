@@ -17,7 +17,6 @@ module.exports = async function (fastify, opts) {
 			}
 		})
 	}
-    
 	function sendCurrentOrders(category, socket) {
 		for (const order of fastify.currentOrders(category)) {
 			socket.send(order)
@@ -36,4 +35,10 @@ module.exports = async function (fastify, opts) {
 			}
 		}
 	)
+
+	fastify.post('/:id', async (request) => {
+		const { id } = request.params
+		fastify.addOrder(id, request.body.amount)
+		return { ok: true }
+	})
 }
