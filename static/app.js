@@ -1,4 +1,5 @@
 const API = 'http://localhost:3000'
+const WS_API = 'ws://localhost:3000'
 
 const selectEl = selector => document.querySelector(selector)
 const createEl = element => document.createElement(element)
@@ -37,7 +38,8 @@ const populateProducts = async (category, method = 'GET', payload) => {
 const category = selectEl('#category')
 category.addEventListener('input', async ({ target }) => {
 	add.style.display = 'block'
-  	await populateProducts(target.value)
+	await populateProducts(target.value)
+	realtimeOrders(target.value)
 })
 
 const add = selectEl('#add')
@@ -50,8 +52,31 @@ add.addEventListener('submit', async e => {
 		info: target.info.value,
 	}
 	await populateProducts(category.value, 'POST', payload)
+	realtimeOrders(category.value)
+
 	target.reset()
 })
+
+let socket = null
+
+const realtimeOrders = (category) => {
+	if (socket) socket.close()
+	socket = new WebSocket(`${WS_API}/orders/${category}`)
+	socket.addEventListener('message', ({ data }) => {
+		try {
+			const { id, total } = JSON.parse(data)
+			const item = selectEl(`[data-id="${id}"]`)
+			if (item === null) return
+			const span =
+				item.querySelector('[slot="orders"]') || document.createElement('span')
+			span.slot = 'orders'
+			span.textContent = total
+			item.appendChild(span)
+		} catch (err) {
+			console.error(err)
+		}
+	})
+}
 
 customElements.define(
 	'product-item',
