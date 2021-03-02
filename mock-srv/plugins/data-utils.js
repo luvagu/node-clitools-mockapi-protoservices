@@ -23,6 +23,15 @@ async function* realtimeOrdersSimulator() {
 	}
 }
 
+function* currentOrders(category) {
+	const idPrefix = catToPrefix[category]
+	if (!idPrefix) return
+	const ids = Object.keys(orders).filter(id => id[0] === idPrefix)
+	for (const id of ids) {
+		yield JSON.stringify({ id, ...orders[id] })
+	}
+}
+
 const catToPrefix = {
 	electronics: 'A',
 	confectionery: 'B',
