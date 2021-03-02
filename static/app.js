@@ -22,6 +22,8 @@ const populateProducts = async (category, method = 'GET', payload) => {
 
 		for (const product of data) {
 			const item = createEl('product-item')
+			item.dataset.id = product.id
+			
 			for (const key of ['name', 'rrp', 'info']) {
 				const span = createEl('span')
 				span.slot = key
