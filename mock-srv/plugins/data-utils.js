@@ -45,7 +45,7 @@ const calculateID = (idPrefix, data) => {
 
 module.exports = fp(async function (fastify, opts) {
 	fastify.decorate('currentOrders', currentOrders)
-	fastify.decorate('realtimeOrders', realtimeOrders)
+	fastify.decorate('realtimeOrders', realtimeOrdersSimulator)
 	fastify.decorateRequest('mockDataInsert', function insert(category, data) {
 		const request = this
 		const idPrefix = catToPrefix[category]
