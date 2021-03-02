@@ -1,8 +1,8 @@
 const API = 'http://localhost:3000'
 const WS_API = 'ws://localhost:3000'
 
-const selectEl = selector => document.querySelector(selector)
-const createEl = element => document.createElement(element)
+const selectEl = (selector) => document.querySelector(selector)
+const createEl = (element) => document.createElement(element)
 
 const populateProducts = async (category, method = 'GET', payload) => {
 	try {
@@ -23,7 +23,7 @@ const populateProducts = async (category, method = 'GET', payload) => {
 		for (const product of data) {
 			const item = createEl('product-item')
 			item.dataset.id = product.id
-			
+
 			for (const key of ['name', 'rrp', 'info']) {
 				const span = createEl('span')
 				span.slot = key
@@ -45,7 +45,7 @@ category.addEventListener('input', async ({ target }) => {
 })
 
 const add = selectEl('#add')
-add.addEventListener('submit', async e => {
+add.addEventListener('submit', async (e) => {
 	e.preventDefault()
 	const { target } = e
 	const payload = {
@@ -62,7 +62,14 @@ add.addEventListener('submit', async e => {
 let socket = null
 
 const realtimeOrders = (category) => {
-	if (socket) socket.close()
+	if (socket === null) {
+		socket = new WebSocket(`${WS_API}/orders/${category}`)
+	} else {
+		socket.send(
+			JSON.stringify({ cmd: 'update-category', payload: { category } })
+		)
+	}
+
 	socket = new WebSocket(`${WS_API}/orders/${category}`)
 	socket.addEventListener('message', ({ data }) => {
 		try {
@@ -70,7 +77,8 @@ const realtimeOrders = (category) => {
 			const item = selectEl(`[data-id="${id}"]`)
 			if (item === null) return
 			const span =
-				item.querySelector('[slot="orders"]') || document.createElement('span')
+				item.querySelector('[slot="orders"]') ||
+				document.createElement('span')
 			span.slot = 'orders'
 			span.textContent = total
 			item.appendChild(span)
@@ -86,7 +94,9 @@ customElements.define(
 		constructor() {
 			super()
 			const itemTmpl = selectEl('#item').content
-			this.attachShadow({ mode: 'open' }).appendChild(itemTmpl.cloneNode(true))
+			this.attachShadow({ mode: 'open' }).appendChild(
+				itemTmpl.cloneNode(true)
+			)
 		}
 	}
 )

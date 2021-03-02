@@ -15,7 +15,7 @@ async function* realtimeOrdersSimulator() {
 
 	while (true) {
 		const delta = Math.floor(Math.random() * 7) + 1
-		const id = ids[Math.floor(Math.random()) * ids.length]
+		const id = ids[Math.floor(Math.random() * ids.length)]
 		orders[id].total += delta
 		const { total } = orders[id]
 		yield JSON.stringify({ id, total })
