@@ -28,7 +28,7 @@ serve static
 ```
 > Then open http://localhost:5000/ to interact with the mock server
 
-## Optional commands for serve
+### Optional commands for serve
 
 > serve `static` with cors enabled
 ```sh
@@ -40,3 +40,24 @@ serve static -C
 serve static -C --ssl-key full-path-to/key.pem --ssl-cert full-path-to/cert.pem
 ```
 
+## Service Mocking - CLI
+
+> install dependencies
+```sh
+cd my-cli
+npm install
+npm link
+my-cli
+``` 
+
+> Link the `my-cli` with npm to be used from any directory in the terminal
+```sh
+npm link
+``` 
+
+> Let's run the interactive cli
+```sh
+my-cli --help
+# or
+my-cli
+``` 
