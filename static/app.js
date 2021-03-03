@@ -70,15 +70,12 @@ const realtimeOrders = (category) => {
 		)
 	}
 
-	socket = new WebSocket(`${WS_API}/orders/${category}`)
 	socket.addEventListener('message', ({ data }) => {
 		try {
 			const { id, total } = JSON.parse(data)
 			const item = selectEl(`[data-id="${id}"]`)
 			if (item === null) return
-			const span =
-				item.querySelector('[slot="orders"]') ||
-				document.createElement('span')
+			const span = item.querySelector('[slot="orders"]') || createEl('span')
 			span.slot = 'orders'
 			span.textContent = total
 			item.appendChild(span)
