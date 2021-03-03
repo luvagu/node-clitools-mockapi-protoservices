@@ -1,17 +1,25 @@
 #!/usr/bin/env node
 
 import got from 'got'
+import minimist from 'minimist'
 
 const API = 'http://localhost:3000'
 
 const usage = (msg = 'Back office for My App') => {
 	console.log(`\n${msg}\n`)
-	console.log(' usage: my-cli <id> <amount>')
+	console.log('     usage: my-cli --amount= --api=')
+	console.log('            my-cli -n= --api=\n')
 }
 
 const argv = process.argv.slice(2)
 
-if (argv.length < 2) {
+const args = minimist(argv, {
+	alias: { amount: 'n' },
+	string: ['api'],
+	default: { api: API },
+})
+
+if (args._.length < 1) {
 	usage()
 	process.exit(1)
 }
