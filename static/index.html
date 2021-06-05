@@ -46,25 +46,32 @@
 		<div id="products"></div>
 
 		<form id="add">
-			<input name="name" placeholder="name" required>
-			<input name="rrp" placeholder="rrp" type="number" step=".01" required>
-			<input name="info" placeholder="info" required>
-			<button type="submit">Add</submit>
+			<input name="name" placeholder="name" required />
+			<input name="rrp" placeholder="rrp" type="number" step=".01" required />
+			<input name="info" placeholder="info" required />
+			<button type="submit">Add</button>
 		</form>
 
 		<template id="item">
-		<style>
-			details { font-size: 1.5em; }
-			summary { cursor: pointer; }
-			p { text-indent: 1.5rem; }
-		</style>
-		<details>
-			<summary>
-				<strong><slot name="name"></slot></strong> - <em><slot name="rrp"></slot></em>
-				<small>[Orders: <slot name="orders">pending</slot>]</small>
-			</summary>
-			<p><slot name="info"></slot></p>
-		</details>
+			<style>
+				details {
+					font-size: 1.5em;
+				}
+				summary {
+					cursor: pointer;
+				}
+				p {
+					text-indent: 1.5rem;
+				}
+			</style>
+			<details>
+				<summary>
+					<strong><slot name="name"></slot></strong> -
+					<em><slot name="rrp"></slot></em>
+					<small>[Orders: <slot name="orders">pending</slot>]</small>
+				</summary>
+				<p><slot name="info"></slot></p>
+			</details>
 		</template>
 	</body>
 </html>

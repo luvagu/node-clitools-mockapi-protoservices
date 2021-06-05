@@ -13,9 +13,9 @@ const categories = await got(`${API}/categories`).json().catch(() => [])
 
 const usage = (msg = 'Back office for My App') => {
 	console.log(`\n${msg}\n`)
-	console.log('     usage: my-cli <id> --amount=<int> --api=<string>')
-	console.log('            my-cli <id> --amt=<int> --api=<string>\n')
-	console.log('            my-cli <id> -n=<int> --api=<string>\n')
+	console.log('     usage: my-cli add order <id> --amount=<int> --api=<string>')
+	console.log('            my-cli add order <id> --amt=<int> --api=<string>\n')
+	console.log('            my-cli add order <id> -n=<int> --api=<string>\n')
 	console.log('list:')
 	console.log('  cats:  my-cli list cats')
 	console.log('  ids:   my-cli list ids --cat=<string> --api=<string>')
@@ -73,7 +73,7 @@ async function tui(api) {
 
 	while (true) {
 		for (const { name, rrp, info } of products) {
-			console.log(chalk`{bold ${name}} - {italic ${rrp}}${info}`)
+			console.log(chalk`{bold ${name}} - {italic ${rrp}} ${info}`)
 		}
 
 		const form = new enquirer.Form({
